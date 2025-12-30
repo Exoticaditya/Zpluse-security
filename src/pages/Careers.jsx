@@ -142,10 +142,15 @@ const Careers = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-            <HUDHeading className="mb-4">Join Our Security Team</HUDHeading>
-            <p className="text-xl text-silver-grey max-w-3xl mx-auto">
-              Build your career with a leading security services provider. 
-              We offer training, growth opportunities, and competitive compensation.
+          <HUDHeading className="mb-4">Join Our Security Team</HUDHeading>
+          <p className="text-xl text-silver-grey max-w-3xl mx-auto">
+            Build your career with a leading security services provider. 
+            We offer training, growth opportunities, and competitive compensation.
+          </p>
+        </motion.div>
+
+        {/* Job Listings */}
+        <section className="mb-16">
           <h3 className="text-2xl font-['Orbitron'] font-bold text-white mb-8">Open Positions</h3>
           <div className="space-y-4">
             {jobs.map((job, index) => (

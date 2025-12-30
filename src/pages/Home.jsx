@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Shield, Users, Building2, Hospital, Lock, CheckCircle } from 'lucide-react';
+import { Shield, Users, Building2, Cross, Lock, CheckCircle } from 'lucide-react';
 import { Button, GlowCard, HUDHeading } from '../components/UIComponents';
 
 const Home = () => {
@@ -204,7 +204,7 @@ const Home = () => {
                 transition={{ duration: 0.6 }}
                 className="w-20 h-20 mx-auto mb-6 bg-gradient-radial from-cobalt to-blue-900 rounded-lg flex items-center justify-center"
               >
-                <Hospital size={40} className="text-white" />
+                <Cross size={40} className="text-white" />
               </motion.div>
               <h3 className="text-2xl font-['Orbitron'] font-bold text-white mb-4 hud-bracket">
                 Healthcare Facility Security

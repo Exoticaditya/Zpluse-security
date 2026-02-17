@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Shield, Users, Building2, Cross, Lock, CheckCircle } from 'lucide-react';
 import { Button, GlowCard, HUDHeading } from '../components/UIComponents';
@@ -35,7 +36,7 @@ const Home = () => {
                   background: 'radial-gradient(circle, rgba(0,71,255,0.1) 0%, transparent 70%)',
                 }}
               />
-              
+
               {/* Middle Ring */}
               <motion.div
                 animate={{ rotate: -360 }}
@@ -79,7 +80,7 @@ const Home = () => {
               Professional Security You Can Trust
             </HUDHeading>
             <p className="text-xl md:text-2xl text-silver-grey mb-8 max-w-3xl mx-auto">
-              Expert security personnel for residential, corporate, and healthcare facilities. 
+              Expert security personnel for residential, corporate, and healthcare facilities.
               Experience reliable protection powered by trained professionals.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -126,7 +127,7 @@ const Home = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Service Card 1 */}
             <GlowCard delay={0}>
               <motion.div
@@ -140,7 +141,7 @@ const Home = () => {
                 Residential Security
               </h3>
               <p className="text-silver-grey mb-6">
-                Professional security guards for apartments, gated communities, and residential complexes. 
+                Professional security guards for apartments, gated communities, and residential complexes.
                 Trained personnel providing 24/7 protection, access control, and patrol services.
               </p>
               <ul className="space-y-2 mb-6">
@@ -157,9 +158,11 @@ const Home = () => {
                   Regular Patrols
                 </li>
               </ul>
-              <Button variant="secondary" className="w-full">
-                Learn More
-              </Button>
+              <Link to="/portal">
+                <Button variant="secondary" className="w-full">
+                  Access Portal
+                </Button>
+              </Link>
             </GlowCard>
 
             {/* Service Card 2 */}
@@ -175,7 +178,7 @@ const Home = () => {
                 Corporate Security
               </h3>
               <p className="text-silver-grey mb-6">
-                Dedicated security teams for offices, warehouses, and commercial properties. 
+                Dedicated security teams for offices, warehouses, and commercial properties.
                 Professional guards trained in corporate security protocols and emergency response.
               </p>
               <ul className="space-y-2 mb-6">
@@ -210,7 +213,7 @@ const Home = () => {
                 Healthcare Facility Security
               </h3>
               <p className="text-silver-grey mb-6">
-                Specialized security personnel for hospitals, clinics, and medical centers. 
+                Specialized security personnel for hospitals, clinics, and medical centers.
                 Guards trained in healthcare security, patient safety, and emergency protocols.
               </p>
               <ul className="space-y-2 mb-6">
@@ -227,9 +230,48 @@ const Home = () => {
                   Medical Equipment Protection
                 </li>
               </ul>
-              <Button variant="secondary" className="w-full">
-                Learn More
-              </Button>
+              <Link to="/portal">
+                <Button variant="secondary" className="w-full">
+                  Access Portal
+                </Button>
+              </Link>
+            </GlowCard>
+
+            {/* Service Card 4 */}
+            <GlowCard delay={0.6}>
+              <motion.div
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+                className="w-20 h-20 mx-auto mb-6 bg-gradient-radial from-cobalt to-blue-900 rounded-lg flex items-center justify-center"
+              >
+                <Lock size={40} className="text-white" />
+              </motion.div>
+              <h3 className="text-2xl font-['Orbitron'] font-bold text-white mb-4 hud-bracket">
+                Cyber Defense Tools
+              </h3>
+              <p className="text-silver-grey mb-6">
+                Advanced digital security suite for password analysis, encryption, and network monitoring.
+                Protect your digital assets with our military-grade cyber tools.
+              </p>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-center text-sm text-silver-grey">
+                  <CheckCircle size={16} className="text-cobalt mr-2" />
+                  Password Analyzer
+                </li>
+                <li className="flex items-center text-sm text-silver-grey">
+                  <CheckCircle size={16} className="text-cobalt mr-2" />
+                  Encryption Suite
+                </li>
+                <li className="flex items-center text-sm text-silver-grey">
+                  <CheckCircle size={16} className="text-cobalt mr-2" />
+                  Network Scanner
+                </li>
+              </ul>
+              <Link to="/tools">
+                <Button variant="secondary" className="w-full">
+                  Launch Tools
+                </Button>
+              </Link>
             </GlowCard>
           </div>
         </div>

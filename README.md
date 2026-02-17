@@ -1,104 +1,144 @@
-# Aegis Robotics Security Website
+# Zpluse Security - Professional Security Management Platform
 
-A high-end, futuristic security website with a cyberpunk-professional theme, built with React, Tailwind CSS, and Framer Motion.
+A modern, full-stack security management platform built with React, Firebase, Tailwind CSS, and Framer Motion. Complete with real-time updates, role-based dashboards, and enterprise-grade features.
 
-## Features
+🌐 **Live Demo:** [https://zplusesecurity.com](https://zplusesecurity.com)
 
-### Visual Design
-- **Cyberpunk-Professional Aesthetic**: Sleek, futuristic design with glassmorphism effects
-- **Color Palette**: 
-  - Deep obsidian black (#0A0A0A)
-  - Electric cobalt blue (#0047FF)
-  - Silver-grey text (#B8B8B8)
-- **Matrix Background**: Animated digital rain effect with Japanese characters
-- **Glassmorphic UI**: Frosted glass effects with glowing borders
-- **HUD Elements**: Heads-up display brackets around headings for robotic feel
+---
 
-### Animations
-- Matrix-style data-stream background
-- Glowing borders and neon accents
-- Smooth parallax scrolling effects
-- Fade-in-up transitions on scroll
-- Hover effects with micro-interactions
-- 3D rotating robotic eye on homepage
-- Scanning line animations
-- Pulsing glow effects
+## ✨ Features
 
-### Pages
+### 🎨 **Modern UI/UX**
+- **Cyberpunk-Professional Design** - Sleek, futuristic interface
+- **Responsive Layout** - Works perfectly on all devices
+- **Glassmorphism Effects** - Frosted glass UI elements
+- **Matrix Background** - Animated digital rain effect
+- **Smooth Animations** - Powered by Framer Motion
+- **Custom Scrollbar** - Themed to match the design
 
-#### 1. Home/Landing Page
-- 3D animated robotic eye centerpiece
-- Hero section with compelling headline
-- Interactive service cards that glow on hover:
-  - Residential Nano-Shield
-  - Corporate Cyber-Physical Defense
-  - Automated Perimeter Patrol
-- Real-time statistics section
-- Smooth scroll indicator
+### 🔐 **Complete Authentication System**
+- Email/Password authentication via Firebase
+- Password reset functionality
+- Email verification (optional)
+- Role-based access control (Client, Worker, Manager, Admin)
+- Protected routes
+- User profile management
 
-#### 2. Security Portal (Client Login)
-- Glassmorphic dashboard layout
-- Live camera feed displays with scanning effects
-- Autonomous drone fleet monitoring
-- Real-time biometric access logs
-- Emergency response button with pulsing animation
-- Dynamic time display
+### 📊 **Role-Based Dashboards**
 
-#### 3. Careers Page
-- "Building the Shield of Tomorrow" header
-- Modern accordion-style job listings
-- Detailed job descriptions with requirements and benefits
-- Interactive application form with:
-  - Glowing input fields
-  - Drag-and-drop resume upload
-  - "Scanning..." animation on file upload
-  - Form validation
+#### **Client Dashboard**
+- View assigned guards in real-time
+- Monitor guard status (on-duty, off-duty, on-break)
+- View incident reports
+- Track guard check-ins and activities
+- Emergency alert system
+- Monthly reports access
 
-### Technical Features
-- **Responsive Design**: Fully optimized for mobile, tablet, and desktop
-- **Smooth Animations**: Powered by Framer Motion
-- **Custom Fonts**: Orbitron for headings, Rajdhani for body text
-- **Dark Mode**: Built-in dark theme
-- **Custom Scrollbar**: Themed scrollbar matching the design
-- **Interactive UI Components**: Reusable components with hover states
+#### **Worker/Guard Dashboard**
+- View assignments and schedule
+- Clock in/out system
+- Submit incident reports with photos
+- View assigned tasks
+- Track work hours
+- Performance metrics
 
-## Installation
+#### **Manager Dashboard**
+- Manage security guard team
+- Manage client accounts
+- Create and edit shift schedules
+- Approve leave requests
+- View analytics and reports
+- Revenue tracking
+- Team performance monitoring
 
-```bash
+#### **Admin Dashboard**
+- Complete user management (CRUD)
+- System settings configuration
+- Audit logs viewer
+- Database management
+- System health monitoring
+- Role assignment
+- Global settings
+
+### 🔥 **Real-Time Features**
+- Live guard status updates
+- Real-time incident notifications
+- Activity feed with instant updates
+- Multi-user collaboration
+- WebSocket connections via Firebase
+
+### 📱 **Core Functionalities**
+- Guard management (add, edit, delete, assign)
+- Client management
+- Incident reporting with severity levels
+- Shift scheduling system
+- Attendance tracking (clock in/out)
+- Activity logging
+- Notification system
+- Report generation
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 16+ installed
+- Firebase account
+- Git (optional)
+
+### 1. Installation
+
+\`\`\`bash
+# Clone the repository
+git clone https://github.com/yourusername/zpluse-security.git
+
+# Navigate to project directory
+cd zpluse-security
+
 # Install dependencies
 npm install
+\`\`\`
 
-# Start development server
+### 2. Firebase Configuration
+
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+2. Copy `.env.example` to `.env`
+3. Fill in your Firebase credentials in `.env`
+
+\`\`\`env
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+\`\`\`
+
+### 3. Run Development Server
+
+\`\`\`bash
 npm run dev
+\`\`\`
 
-# Build for production
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### 4. Build for Production
+
+\`\`\`bash
 npm run build
+\`\`\`
 
-# Preview production build
-npm run preview
-```
+---
 
-## Project Structure
+## 📚 Documentation
 
-```
-src/
-├── components/
-│   ├── UIComponents.jsx      # Reusable UI components (buttons, cards, inputs)
-│   ├── MatrixBackground.jsx  # Animated matrix background
-│   ├── Navbar.jsx            # Navigation bar
-│   └── Footer.jsx            # Footer component
-├── pages/
-│   ├── Home.jsx              # Landing page
-│   ├── SecurityPortal.jsx    # Security dashboard
-│   └── Careers.jsx           # Careers page
-├── App.jsx                   # Main app component with routing
-├── main.jsx                  # Entry point
-└── index.css                 # Global styles and Tailwind config
-```
+- **[QUICKSTART.md](QUICKSTART.md)** - Get started in 5 minutes
+- **[FIREBASE_SETUP.md](FIREBASE_SETUP.md)** - Complete Firebase setup guide
+- **[DATA_CHECKLIST.md](DATA_CHECKLIST.md)** - Data requirements and templates
+- **[HOSTING.md](HOSTING.md)** - Deployment guide (Netlify + GoDaddy)
+- **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - Detailed project overview
 
-## Technologies Used
-
-- **React 18**: Modern React with hooks
+---- **React 18**: Modern React with hooks
 - **Vite**: Fast build tool and dev server
 - **Tailwind CSS**: Utility-first CSS framework
 - **Framer Motion**: Animation library

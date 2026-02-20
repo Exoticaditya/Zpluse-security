@@ -292,13 +292,11 @@ const Register = () => {
                                 <div className="relative">
                                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-cobalt/50" size={20} />
                                     <input
-                                       portal" className="text-cobalt hover:text-blue-400 transition-colors font-['Orbitron']">
-                                Login
-                            </Link>
-                        </p>
-                    </div>
-                    </>
-                    )}              required
+                                        type={showConfirmPassword ? 'text' : 'password'}
+                                        name="confirmPassword"
+                                        value={formData.confirmPassword}
+                                        onChange={handleChange}
+                                        required
                                         className="w-full bg-black/50 border border-cobalt/30 rounded-lg pl-10 pr-12 py-3 text-white focus:border-cobalt outline-none transition-colors"
                                         placeholder="Repeat password"
                                     />
@@ -328,11 +326,13 @@ const Register = () => {
                     <div className="mt-6 text-center">
                         <p className="text-silver-grey text-sm">
                             Already have an account?{' '}
-                            <Link to="/login" className="text-cobalt hover:text-blue-400 transition-colors font-['Orbitron']">
+                            <Link to="/portal" className="text-cobalt hover:text-blue-400 transition-colors font-['Orbitron']">
                                 Login
                             </Link>
                         </p>
                     </div>
+                    </>
+                    )}
                 </motion.div>
 
                 {/* Back to Home */}
@@ -346,10 +346,10 @@ const Register = () => {
                         ← Back to Home
                     </Link>
                 </motion.div>
-        <Footer />
-        </>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

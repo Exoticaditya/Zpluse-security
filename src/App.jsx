@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import WhatsAppButton from './components/WhatsAppButton';
 
 // Layouts
 import AdminDashboardLayout from './layouts/AdminDashboardLayout';
@@ -11,12 +12,14 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Careers from './pages/Careers';
+import CyberTools from './pages/CyberTools';
 
 // Role Selection Portal
 import RoleSelectionPortal from './pages/RoleSelectionPortal';
 
-// Auth Pages - Role-specific logins
+// Auth Pages - Role-specific logins and signup
 import { AdminLogin, ManagerLogin, ClientLogin, GuardLogin } from './components/auth/RoleLogin';
+import Register from './components/auth/Register';
 
 // Dashboards
 import GuardDashboardMobile from './pages/dashboards/GuardDashboardMobile';
@@ -35,15 +38,21 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <WhatsAppButton />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/tools" element={<CyberTools />} />
 
           {/* Role Selection Portal */}
           <Route path="/portal" element={<RoleSelectionPortal />} />
+
+          {/* Signup Route */}
+          <Route path="/signup" element={<Register />} />
+          <Route path="/register" element={<Register />} />
 
           {/* Role-Specific Login Pages */}
           <Route path="/login/admin" element={<AdminLogin />} />

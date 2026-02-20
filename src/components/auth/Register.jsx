@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Mail, Lock, Eye, EyeOff, User, Phone, Shield, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Button, HUDHeading } from '../UIComponents';
+import Navbar from '../Navbar';
+import Footer from '../Footer';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -17,6 +19,7 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const { register } = useAuth();
@@ -64,8 +67,8 @@ const Register = () => {
                 role: formData.role
             });
 
-            // Navigate to login page
-            navigate('/login');
+            // Show success message instead of redirecting immediately
+            setSuccess(true);
         } catch (error) {
             console.error('Registration error:', error);
             if (error.code === 'auth/email-already-in-use') {
@@ -79,8 +82,10 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-6 py-20">
-            <div className="container mx-auto max-w-2xl">
+        <>
+            <Navbar />
+            <div className="min-h-screen flex items-center justify-center px-6 py-20">
+                <div className="container mx-auto max-w-2xl">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -105,16 +110,50 @@ const Register = () => {
                     transition={{ delay: 0.2 }}
                     className="glass p-8 rounded-lg glow-border"
                 >
-                    {error && (
+                    {success ? (
                         <motion.div
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg flex items-start"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="text-center py-8"
                         >
-                            <AlertCircle className="text-red-500 mr-3 flex-shrink-0 mt-0.5" size={20} />
-                            <p className="text-red-400 text-sm">{error}</p>
+                            <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ delay: 0.2, type: 'spring' }}
+                                className="w-20 h-20 mx-auto mb-6 bg-green-500/20 rounded-full flex items-center justify-center"
+                            >
+                                <CheckCircle className="text-green-500" size={40} />
+                            </motion.div>
+                            <h3 className="text-2xl font-['Orbitron'] text-white mb-4">Registration Successful!</h3>
+                            <p className="text-silver-grey mb-6">
+                                Your account has been created and is pending admin approval. 
+                                You will receive an email notification once your account is activated.
+                            </p>
+                            <div className="space-y-3">
+                                <Link to="/portal">
+                                    <Button variant="primary" className="w-full">
+                                        Go to Login Portal
+                                    </Button>
+                                </Link>
+                                <Link to="/">
+                                    <Button variant="secondary" className="w-full">
+                                        Back to Home
+                                    </Button>
+                                </Link>
+                            </div>
                         </motion.div>
-                    )}
+                    ) : (
+                        <>
+                            {error && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg flex items-start"
+                                >
+                                    <AlertCircle className="text-red-500 mr-3 flex-shrink-0 mt-0.5" size={20} />
+                                    <p className="text-red-400 text-sm">{error}</p>
+                                </motion.div>
+                            )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Role Selection */}
@@ -253,11 +292,13 @@ const Register = () => {
                                 <div className="relative">
                                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-cobalt/50" size={20} />
                                     <input
-                                        type={showConfirmPassword ? 'text' : 'password'}
-                                        name="confirmPassword"
-                                        value={formData.confirmPassword}
-                                        onChange={handleChange}
-                                        required
+                                       portal" className="text-cobalt hover:text-blue-400 transition-colors font-['Orbitron']">
+                                Login
+                            </Link>
+                        </p>
+                    </div>
+                    </>
+                    )}              required
                                         className="w-full bg-black/50 border border-cobalt/30 rounded-lg pl-10 pr-12 py-3 text-white focus:border-cobalt outline-none transition-colors"
                                         placeholder="Repeat password"
                                     />
@@ -305,6 +346,8 @@ const Register = () => {
                         ← Back to Home
                     </Link>
                 </motion.div>
+        <Footer />
+        </>
             </div>
         </div>
     );

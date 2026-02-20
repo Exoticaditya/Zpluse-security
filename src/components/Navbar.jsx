@@ -140,10 +140,19 @@ const Navbar = () => {
               </div>
             ) : (
               <Link
-                to="/login"
-                className="glass px-6 py-2 rounded-lg border border-cobalt/50 text-cobalt font-['Orbitron'] hover:bg-cobalt/20 transition-colors"
+                to="/portal"
+                className="glass px-6 py-2 rounded-lg border border-cobalt/50 text-cobalt font-['Orbitron'] hover:bg-cobalt/20 transition-colors mr-2"
               >
                 Login
+              </Link>
+            )}
+            
+            {!currentUser && (
+              <Link
+                to="/signup"
+                className="bg-cobalt px-6 py-2 rounded-lg text-white font-['Orbitron'] hover:bg-blue-600 transition-colors"
+              >
+                Sign Up
               </Link>
             )}
           </div>
@@ -211,11 +220,21 @@ const Navbar = () => {
                 </>
               ) : (
                 <Link
-                  to="/login"
+                  to="/portal"
                   onClick={() => setIsOpen(false)}
                   className="block py-3 px-4 rounded-lg font-['Orbitron'] text-cobalt hover:bg-cobalt/20 transition-colors mt-2"
                 >
                   Login
+                </Link>
+              )}
+              
+              {!currentUser && (
+                <Link
+                  to="/signup"
+                  onClick={() => setIsOpen(false)}
+                  className="block py-3 px-4 rounded-lg font-['Orbitron'] bg-cobalt text-white hover:bg-blue-600 transition-colors mt-2"
+                >
+                  Sign Up
                 </Link>
               )}
             </motion.div>

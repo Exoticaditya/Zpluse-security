@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Github } from 'lucide-react';
+import { Shield, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -67,40 +67,42 @@ const Footer = () => {
             <h4 className="font-['Orbitron'] font-semibold text-cobalt mb-4">Follow Us</h4>
             <div className="flex space-x-4">
               <a
-                href="https://www.facebook.com/zplusesecurity"
+                href="https://www.youtube.com/@zplusesecurities?si=NHxpMQcBqYdODgZu"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 glass glow-border rounded-lg flex items-center justify-center text-cobalt hover:bg-cobalt hover:text-white transition-all"
-                aria-label="Facebook"
+                aria-label="YouTube"
               >
-                <Facebook size={20} />
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
               </a>
               <a
-                href="https://twitter.com/zplusesecurity"
+                href="https://www.instagram.com/zplusesecurity?igsh=MWx0ZHo1ZHd0bWliaQ"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 glass glow-border rounded-lg flex items-center justify-center text-cobalt hover:bg-cobalt hover:text-white transition-all"
-                aria-label="Twitter"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://x.com/zplusesecuritie"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 glass glow-border rounded-lg flex items-center justify-center text-cobalt hover:bg-cobalt hover:text-white transition-all"
+                aria-label="Twitter/X"
               >
                 <Twitter size={20} />
               </a>
               <a
-                href="https://www.linkedin.com/company/zpluse-security"
+                href="https://www.linkedin.com/in/zpluse-security-5a67403a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 glass glow-border rounded-lg flex items-center justify-center text-cobalt hover:bg-cobalt hover:text-white transition-all"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
-              </a>
-              <a
-                href="https://github.com/zplusesecurity"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 glass glow-border rounded-lg flex items-center justify-center text-cobalt hover:bg-cobalt hover:text-white transition-all"
-                aria-label="GitHub"
-              >
-                <Github size={20} />
               </a>
             </div>
           </div>

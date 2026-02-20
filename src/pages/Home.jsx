@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Shield, Users, Building2, Cross, Lock, CheckCircle } from 'lucide-react';
 import { Button, GlowCard, HUDHeading } from '../components/UIComponents';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
 
   return (
-    <div className="relative min-h-screen">
+    <>
+      <Navbar />
+      <div className="relative min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Parallax Background */}
@@ -305,6 +309,8 @@ const Home = () => {
         </div>
       </section>
     </div>
+    <Footer />
+    </>
   );
 };
 

@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Award, Users, Target } from 'lucide-react';
 import { GlowCard, HUDHeading } from '../components/UIComponents';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const About = () => {
   const team = [
@@ -11,7 +13,9 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-6 container mx-auto">
+    <>
+      <Navbar />
+      <div className="min-h-screen pt-24 pb-12 px-6 container mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -74,6 +78,8 @@ const About = () => {
         </div>
       </section>
     </div>
+    <Footer />
+    </>
   );
 };
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Upload, CheckCircle, Loader } from 'lucide-react';
 import { Button, GlowCard, HUDHeading, InputField, TextArea } from '../components/UIComponents';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Careers = () => {
   const [openJob, setOpenJob] = useState(null);
@@ -134,8 +136,10 @@ const Careers = () => {
   };
 
   return (
-    <div className="relative min-h-screen py-20 px-6">
-      <div className="container mx-auto">
+    <>
+      <Navbar />
+      <div className="relative min-h-screen py-20 px-6">
+        <div className="container mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -381,6 +385,8 @@ const Careers = () => {
         </section>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

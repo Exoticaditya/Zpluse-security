@@ -8,6 +8,8 @@ import {
   Building2,
   ArrowRight
 } from 'lucide-react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const RoleSelectionPortal = () => {
   const navigate = useNavigate();
@@ -60,7 +62,9 @@ const RoleSelectionPortal = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-obsidian via-gray-900 to-obsidian flex items-center justify-center p-4 md:p-8">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gradient-to-br from-obsidian via-gray-900 to-obsidian flex items-center justify-center p-4 md:p-8">
       <div className="w-full max-w-6xl">
         {/* Header */}
         <motion.div
@@ -162,6 +166,8 @@ const RoleSelectionPortal = () => {
         </motion.div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

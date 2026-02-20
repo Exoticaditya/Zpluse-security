@@ -38,6 +38,16 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    // Register new user
+    const register = async (email, password, userData) => {
+        try {
+            const response = await authService.register(email, password, userData);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    };
+
     // Logout user
     const logout = () => {
         authService.logout();
@@ -59,6 +69,7 @@ export const AuthProvider = ({ children }) => {
         currentUser,
         userRole,
         login,
+        register,
         logout,
         isAuthenticated,
         getUserRole,

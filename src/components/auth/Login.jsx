@@ -37,11 +37,11 @@ const Login = () => {
             const roleRoutes = {
                 'CLIENT': '/portal/client',
                 'GUARD': '/portal/worker',
-                'MANAGER': '/portal/manager',
-                'ADMIN': '/portal/admin'
+                'SUPERVISOR': '/portal/supervisor',
+                'ADMIN': '/admin/dashboard'
             };
 
-            navigate(roleRoutes[user.role] || '/portal/admin');
+            navigate(roleRoutes[user.role] || '/admin/dashboard');
         } catch (error) {
             setError(error.message || 'Failed to login. Please check your credentials.');
         } finally {

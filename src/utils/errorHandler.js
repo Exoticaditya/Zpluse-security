@@ -2,7 +2,7 @@
  * Error Handler Utility
  * Centralized error handling and user-friendly messages
  */
-import { ApiError } from './apiClient';
+import { ApiError } from '../services/apiClient';
 
 /**
  * Format error message for user display

@@ -24,8 +24,8 @@ const Register = () => {
 
     const roles = [
         { value: 'client', label: 'Client', description: 'Property owner or facility manager' },
-        { value: 'worker', label: 'Security Guard', description: 'Field security personnel' },
-        { value: 'manager', label: 'Manager', description: 'Operations supervisor' },
+        { value: 'guard', label: 'Security Guard', description: 'Field security personnel' },
+        { value: 'supervisor', label: 'Supervisor', description: 'Operations supervisor' },
         { value: 'admin', label: 'Administrator', description: 'System administrator' }
     ];
 

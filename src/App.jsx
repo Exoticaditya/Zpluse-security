@@ -1,122 +1,114 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import MatrixBackground from './components/MatrixBackground';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+
+// Layouts
+import AdminDashboardLayout from './layouts/AdminDashboardLayout';
 
 // Public Pages
 import Home from './pages/Home';
-import SecurityPortal from './pages/SecurityPortal';
-import Careers from './pages/Careers';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import CyberTools from './pages/CyberTools';
+import Careers from './pages/Careers';
 
-// Auth Pages
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import ForgotPassword from './pages/ForgotPassword';
-import Profile from './pages/Profile';
+// Role Selection Portal
+import RoleSelectionPortal from './pages/RoleSelectionPortal';
 
-// Portal Dashboards
+// Auth Pages - Role-specific logins
+import { AdminLogin, ManagerLogin, ClientLogin, GuardLogin } from './components/auth/RoleLogin';
+
+// Dashboards
+import GuardDashboardMobile from './pages/dashboards/GuardDashboardMobile';
 import ClientDashboard from './pages/portals/ClientDashboard';
-import WorkerDashboard from './pages/portals/WorkerDashboard';
 import ManagerDashboard from './pages/portals/ManagerDashboard';
-import AdminDashboard from './pages/portals/AdminDashboard';
 
-// Admin Management Pages
+// Admin Pages
+import AdminDashboardHome from './pages/dashboards/admin/AdminDashboardHome';
 import GuardsPage from './pages/guards/GuardsPage';
-import ClientsPage from './pages/clients/ClientsPage';
 import SitesPage from './pages/sites/SitesPage';
+import ClientsPage from './pages/clients/ClientsPage';
+import AssignmentsPage from './pages/assignments/AssignmentsPage';
+import SitePostsPage from './pages/siteposts/SitePostsPage';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="relative min-h-screen bg-obsidian">
-          <MatrixBackground />
-          <Navbar />
-          <main className="relative z-10 pt-20">
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/portal" element={<SecurityPortal />} />
-              <Route path="/tools" element={<CyberTools />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/careers" element={<Careers />} />
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/careers" element={<Careers />} />
 
-              {/* Auth Routes */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/profile" element={<Profile />} />
+          {/* Role Selection Portal */}
+          <Route path="/portal" element={<RoleSelectionPortal />} />
 
-              {/* Protected Portal Routes */}
-              <Route
-                path="/portal/client"
-                element={
-                  <ProtectedRoute allowedRoles={['CLIENT']}>
-                    <ClientDashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/portal/worker"
-                element={
-                  <ProtectedRoute allowedRoles={['GUARD']}>
-                    <WorkerDashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/portal/manager"
-                element={
-                  <ProtectedRoute allowedRoles={['MANAGER']}>
-                    <ManagerDashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/portal/admin"
-                element={
-                  <ProtectedRoute allowedRoles={['ADMIN']}>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                }
-              />
-              
-              {/* Admin Management Routes */}
-              <Route
-                path="/portal/admin/guards"
-                element={
-                  <ProtectedRoute allowedRoles={['ADMIN']}>
-                    <GuardsPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/portal/admin/clients"
-                element={
-                  <ProtectedRoute allowedRoles={['ADMIN']}>
-                    <ClientsPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/portal/admin/sites"
-                element={
-                  <ProtectedRoute allowedRoles={['ADMIN']}>
-                    <SitesPage />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+          {/* Role-Specific Login Pages */}
+          <Route path="/login/admin" element={<AdminLogin />} />
+          <Route path="/login/manager" element={<ManagerLogin />} />
+          <Route path="/login/client" element={<ClientLogin />} />
+          <Route path="/login/guard" element={<GuardLogin />} />
+
+          {/* Legacy login redirect */}
+          <Route path="/login" element={<Navigate to="/portal" replace />} />
+
+          {/* Guard Dashboard - Mobile First */}
+          <Route
+            path="/dashboard/guard"
+            element={
+              <ProtectedRoute allowedRoles={['GUARD']}>
+                <GuardDashboardMobile />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Client Dashboard */}
+          <Route
+            path="/dashboard/client"
+            element={
+              <ProtectedRoute allowedRoles={['CLIENT']}>
+                <ClientDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Manager/Supervisor Dashboard */}
+          <Route
+            path="/dashboard/manager"
+            element={
+              <ProtectedRoute allowedRoles={['SUPERVISOR']}>
+                <ManagerDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Admin Dashboard with Sidebar Layout */}
+          <Route
+            path="/dashboard/admin/*"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN']}>
+                <AdminDashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<AdminDashboardHome />} />
+            <Route path="guards" element={<GuardsPage />} />
+            <Route path="sites" element={<SitesPage />} />
+            <Route path="clients" element={<ClientsPage />} />
+            <Route path="assignments" element={<AssignmentsPage />} />
+            <Route path="site-posts" element={<SitePostsPage />} />
+          </Route>
+
+          {/* Legacy routes - redirect to new structure */}
+          <Route path="/portal/client" element={<Navigate to="/dashboard/client" replace />} />
+          <Route path="/portal/worker" element={<Navigate to="/dashboard/guard" replace />} />
+          <Route path="/portal/guard" element={<Navigate to="/dashboard/guard" replace />} />
+          <Route path="/portal/supervisor" element={<Navigate to="/dashboard/manager" replace />} />
+          <Route path="/portal/manager" element={<Navigate to="/dashboard/manager" replace />} />
+          <Route path="/admin/*" element={<Navigate to="/dashboard/admin" replace />} />
+        </Routes>
       </Router>
     </AuthProvider>
   );

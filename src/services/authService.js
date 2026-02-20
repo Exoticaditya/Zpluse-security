@@ -18,17 +18,24 @@ export const login = async (email, password) => {
       password,
     });
 
-    // Backend returns: { token, userId, email, fullName, role }
-    if (response.token) {
+    // Backend returns: { accessToken, tokenType, expiresInSeconds, user: { id, email, fullName, phone, roles: [] } }
+    if (response.accessToken && response.user) {
       // Store token
-      localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.token);
+      localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.accessToken);
+      
+      // Extract primary role (use first role from array)
+      const primaryRole = response.user.roles && response.user.roles.length > 0 
+        ? response.user.roles[0] 
+        : 'CLIENT';
       
       // Store user data
       const userData = {
-        userId: response.userId,
-        email: response.email,
-        fullName: response.fullName,
-        role: response.role,
+        userId: response.user.id,
+        email: response.user.email,
+        fullName: response.user.fullName,
+        phone: response.user.phone,
+        role: primaryRole,
+        roles: response.user.roles, // Store all roles for future use
       };
       localStorage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(userData));
       
@@ -109,9 +116,34 @@ export const hasAnyRole = (roles) => {
   return roles.includes(userRole);
 };
 
+/**
+ * Register new user
+ * @param {string} email
+ * @param {string} password
+ * @param {Object} userData - Additional user data (fullName, phoneNumber, role)
+ * @returns {Promise<Object>} Registration response
+ */
+export const register = async (email, password, userData = {}) => {
+  try {
+    const response = await apiClient.post(API_ENDPOINTS.AUTH.REGISTER, {
+      email,
+      password,
+      fullName: userData.name || userData.fullName,
+      phone: userData.phone || userData.phoneNumber,
+      role: (userData.role || 'CLIENT').toUpperCase(),
+    });
+
+    // Backend returns UserResponse: { id, email, fullName, phone, roles: [] }
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   login,
   logout,
+  register,
   getCurrentUser,
   isAuthenticated,
   getUserRole,

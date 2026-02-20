@@ -7,19 +7,19 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
 
     // Check authentication
     if (!currentUser) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to="/portal" replace />;
     }
 
     // Check role authorization
     if (allowedRoles.length > 0 && !allowedRoles.includes(userRole?.toUpperCase())) {
         // Redirect to appropriate dashboard based on role
         const roleRoutes = {
-            'ADMIN': '/portal/admin',
-            'MANAGER': '/portal/manager',
-            'GUARD': '/portal/worker',
-            'CLIENT': '/portal/client',
+            'ADMIN': '/dashboard/admin',
+            'SUPERVISOR': '/dashboard/manager',
+            'GUARD': '/dashboard/guard',
+            'CLIENT': '/dashboard/client',
         };
-        return <Navigate to={roleRoutes[userRole?.toUpperCase()] || '/'} replace />;
+        return <Navigate to={roleRoutes[userRole?.toUpperCase()] || '/portal'} replace />;
     }
 
     return children;

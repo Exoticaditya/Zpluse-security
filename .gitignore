@@ -3,6 +3,9 @@
 .env.local
 .env.production
 
+# Backend (separate repository)
+backend/
+
 # Dependencies
 node_modules
 dist

@@ -67,26 +67,38 @@ const Footer = () => {
             <h4 className="font-['Orbitron'] font-semibold text-cobalt mb-4">Follow Us</h4>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.facebook.com/zplusesecurity"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 glass glow-border rounded-lg flex items-center justify-center text-cobalt hover:bg-cobalt hover:text-white transition-all"
+                aria-label="Facebook"
               >
                 <Facebook size={20} />
               </a>
               <a
-                href="#"
+                href="https://twitter.com/zplusesecurity"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 glass glow-border rounded-lg flex items-center justify-center text-cobalt hover:bg-cobalt hover:text-white transition-all"
+                aria-label="Twitter"
               >
                 <Twitter size={20} />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/zpluse-security"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 glass glow-border rounded-lg flex items-center justify-center text-cobalt hover:bg-cobalt hover:text-white transition-all"
+                aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
               </a>
               <a
-                href="#"
+                href="https://github.com/zplusesecurity"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 glass glow-border rounded-lg flex items-center justify-center text-cobalt hover:bg-cobalt hover:text-white transition-all"
+                aria-label="GitHub"
               >
                 <Github size={20} />
               </a>

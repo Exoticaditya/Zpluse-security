@@ -1,0 +1,44 @@
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: framework
+  shutdown: graceful
+
+spring:
+  # DataSource configuration handled by RailwayPostgresConfig
+  # Reads DATABASE_URL environment variable from Railway
+  # HikariCP pool configured with production-grade settings
+  
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+  flyway:
+    # Disabled in production - schema already exists on Railway database
+    # All migrations (V1-V9) have been manually applied
+    enabled: false
+    clean-disabled: true
+    baseline-on-migrate: true
+    baseline-version: 9
+    locations: classpath:db/migration
+    validate-on-migrate: false
+
+app:
+  security:
+    jwt:
+      secret: ${APP_SECURITY_JWT_SECRET}
+      issuer: sgms
+      access-token-ttl-seconds: ${JWT_ACCESS_TTL_SECONDS:86400}
+  cors:
+    allowed-origins: https://zplusesecurity.com,https://www.zplusesecurity.com,https://*.netlify.app
+
+logging:
+  level:
+    root: INFO
+    com.sgms: INFO
+    org.hibernate.SQL: OFF
+    org.hibernate.type: OFF
+    org.springframework.web: INFO

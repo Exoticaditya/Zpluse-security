@@ -6,6 +6,14 @@ import apiClient from './apiClient';
 import { API_ENDPOINTS } from '../config/api';
 
 /**
+ * Get current guard's detailed profile
+ * @returns {Promise<Object>} Current guard with assignment details
+ */
+export const getCurrentGuard = async () => {
+  return apiClient.get(API_ENDPOINTS.GUARDS.ME);
+};
+
+/**
  * Get all guards
  * @returns {Promise<Array>} List of guards
  */
@@ -41,6 +49,7 @@ export const deleteGuard = async (id) => {
 };
 
 export default {
+  getCurrentGuard,
   getAllGuards,
   getGuardById,
   createGuard,

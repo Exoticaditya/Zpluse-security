@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { ToastProvider } from './contexts/ToastContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import WhatsAppButton from './components/WhatsAppButton';
 
@@ -37,9 +38,10 @@ import SitePostsPage from './pages/siteposts/SitePostsPage';
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <WhatsAppButton />
-        <Routes>
+      <ToastProvider>
+        <Router>
+          <WhatsAppButton />
+          <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -118,7 +120,8 @@ function App() {
           <Route path="/portal/manager" element={<Navigate to="/dashboard/manager" replace />} />
           <Route path="/admin/*" element={<Navigate to="/dashboard/admin" replace />} />
         </Routes>
-      </Router>
+        </Router>
+      </ToastProvider>
     </AuthProvider>
   );
 }

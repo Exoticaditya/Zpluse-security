@@ -58,11 +58,8 @@ const GuardDashboardMobile = () => {
   const resolveGuardId = async () => {
     try {
       setLoading(true);
-      const guards = await guardService.getAllGuards();
-      const myGuard = guards?.find(
-        (g) => g.userId === currentUser?.userId || g.email === currentUser?.email
-      );
-      if (myGuard) {
+      const myGuard = await guardService.getCurrentGuard();
+      if (myGuard && myGuard.id) {
         setGuardId(myGuard.id);
       } else {
         showNotification('No guard record linked to your account. Contact admin.', 'error');

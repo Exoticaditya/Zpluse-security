@@ -1,0 +1,182 @@
+{
+  "timestamp": "2026-02-23T14:47:29.453432",
+  "stats": {
+    "total_issues": 27,
+    "critical_count": 4,
+    "warning_count": 5,
+    "backend_files": 92,
+    "frontend_files": 44
+  },
+  "issues": {
+    "critical": [
+      {
+        "category": "Environment",
+        "message": "Missing required environment variable: APP_SECURITY_JWT_SECRET",
+        "fix": "Set APP_SECURITY_JWT_SECRET: JWT signing secret for authentication",
+        "timestamp": "2026-02-23T14:47:29.137038"
+      },
+      {
+        "category": "Environment",
+        "message": "Missing required environment variable: DATABASE_URL",
+        "fix": "Set DATABASE_URL: PostgreSQL connection string (for prod)",
+        "timestamp": "2026-02-23T14:47:29.137283"
+      },
+      {
+        "category": "Backend",
+        "message": "Maven (mvn) not found in PATH",
+        "fix": "Install Maven: https://maven.apache.org/",
+        "timestamp": "2026-02-23T14:47:29.153846"
+      },
+      {
+        "category": "Frontend",
+        "message": "npm not found in PATH",
+        "fix": "Install Node.js: https://nodejs.org/",
+        "timestamp": "2026-02-23T14:47:29.163058"
+      }
+    ],
+    "warning": [
+      {
+        "category": "Structure",
+        "message": "controller/ package not found",
+        "fix": "Create package for controller layer",
+        "timestamp": "2026-02-23T14:47:29.445828"
+      },
+      {
+        "category": "Structure",
+        "message": "service/ package not found",
+        "fix": "Create package for service layer",
+        "timestamp": "2026-02-23T14:47:29.445906"
+      },
+      {
+        "category": "Structure",
+        "message": "repository/ package not found",
+        "fix": "Create package for repository layer",
+        "timestamp": "2026-02-23T14:47:29.445972"
+      },
+      {
+        "category": "Structure",
+        "message": "entity/ package not found",
+        "fix": "Create package for entity layer",
+        "timestamp": "2026-02-23T14:47:29.446033"
+      },
+      {
+        "category": "Structure",
+        "message": "dto/ package not found",
+        "fix": "Create package for dto layer",
+        "timestamp": "2026-02-23T14:47:29.446093"
+      }
+    ],
+    "info": [
+      {
+        "category": "Environment",
+        "message": "Optional variable not set: SPRING_PROFILES_ACTIVE",
+        "fix": "Consider setting SPRING_PROFILES_ACTIVE: Should be 'local' or 'prod'",
+        "timestamp": "2026-02-23T14:47:29.137312"
+      },
+      {
+        "category": "Environment",
+        "message": "Optional variable not set: CORS_ALLOWED_ORIGINS",
+        "fix": "Consider setting CORS_ALLOWED_ORIGINS: Frontend URLs for CORS",
+        "timestamp": "2026-02-23T14:47:29.137321"
+      },
+      {
+        "category": "Environment",
+        "message": "Optional variable not set: JWT_ACCESS_TTL_SECONDS",
+        "fix": "Consider setting JWT_ACCESS_TTL_SECONDS: Token expiry time (default: 86400)",
+        "timestamp": "2026-02-23T14:47:29.137329"
+      },
+      {
+        "category": "Environment",
+        "message": "Optional variable not set: VITE_API_BASE_URL",
+        "fix": "Consider setting VITE_API_BASE_URL: Backend API URL for frontend",
+        "timestamp": "2026-02-23T14:47:29.137338"
+      },
+      {
+        "category": "Database",
+        "message": "DATABASE_URL not set - will use local PostgreSQL",
+        "fix": "Ensure local PostgreSQL is running on localhost:5432",
+        "timestamp": "2026-02-23T14:47:29.283628"
+      },
+      {
+        "category": "Database",
+        "message": "psycopg2 not installed - skipping connection test",
+        "fix": "Install with: pip install psycopg2-binary",
+        "timestamp": "2026-02-23T14:47:29.284391"
+      },
+      {
+        "category": "Structure",
+        "message": "Backend: 92 Java files",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.445685"
+      },
+      {
+        "category": "Structure",
+        "message": "Frontend: 44 JSX files",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.445699"
+      }
+    ],
+    "success": [
+      {
+        "category": "Database",
+        "message": "\u2713 Found 9 migration files",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.140713"
+      },
+      {
+        "category": "Frontend",
+        "message": "\u2713 node_modules exists",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.154564"
+      },
+      {
+        "category": "API",
+        "message": "\u2713 Found 10 controllers",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.175422"
+      },
+      {
+        "category": "Architecture",
+        "message": "\u2713 No entity exposure detected",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.282044"
+      },
+      {
+        "category": "Security",
+        "message": "\u2713 SecurityConfig.java exists",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.283046"
+      },
+      {
+        "category": "Security",
+        "message": "\u2713 JwtAuthenticationFilter.java exists",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.283203"
+      },
+      {
+        "category": "Security",
+        "message": "\u2713 UserPrincipal.java exists",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.283304"
+      },
+      {
+        "category": "Structure",
+        "message": "\u2713 config/ package exists",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.446187"
+      },
+      {
+        "category": "Structure",
+        "message": "\u2713 security/ package exists",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.446269"
+      },
+      {
+        "category": "Structure",
+        "message": "\u2713 exception/ package exists",
+        "fix": null,
+        "timestamp": "2026-02-23T14:47:29.446365"
+      }
+    ]
+  }
+}

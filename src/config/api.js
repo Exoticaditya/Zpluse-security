@@ -22,6 +22,7 @@ export const API_ENDPOINTS = {
   GUARDS: {
     BASE: '/guards',
     BY_ID: (id) => `/guards/${id}`,
+    ME: '/guards/me',
   },
 
   // Clients

@@ -130,6 +130,45 @@ npm run build
 
 ---
 
+## 🌍 Production Deployment
+
+**SGMS is currently LIVE in production!**
+
+| Component | Production URL | Status |
+|-----------|---------------|--------|
+| **Backend API** | https://sgms-backend-production.up.railway.app/api | ✅ Live |
+| **Frontend** | https://zplusesecurity.com | ✅ Live |
+| **Database** | Railway PostgreSQL | ✅ Live |
+| **API Docs** | https://sgms-backend-production.up.railway.app/swagger-ui.html | ✅ Live |
+
+### Test Production
+
+\`\`\`powershell
+# Run comprehensive health check
+.\test_production.ps1
+
+# Inspect production database
+railway run "psql -f psql_inspection.sql"
+
+# Run project auditor
+python sgms_auditor.py
+\`\`\`
+
+### Production Test Credentials
+
+- **Admin**: admin@zpluse.com / Admin@123
+- **Supervisor**: supervisor@zpluse.com / Super@123
+- **Guard**: guard1@zpluse.com / Guard@123
+- **Client**: client1@zpluse.com / Client@123
+
+### Deployment Documentation
+
+- **[PRODUCTION_DEPLOYMENT_REFERENCE.md](PRODUCTION_DEPLOYMENT_REFERENCE.md)** - Complete production reference
+- **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Full deployment guide
+- **[GITHUB_DEPLOYMENT.md](GITHUB_DEPLOYMENT.md)** - GitHub deployment automation
+
+---
+
 ## 📚 Documentation
 
 - **[QUICKSTART.md](QUICKSTART.md)** - Get started in 5 minutes

@@ -117,10 +117,20 @@ const request = async (endpoint, options = {}) => {
   try {
     const response = await fetch(url, config);
     
-    // Handle 401 Unauthorized
+    // Handle 401 Unauthorized - Auto logout
     if (response.status === 401) {
       handleUnauthorized();
       throw new ApiError('Session expired. Please login again.', 401, 'UNAUTHORIZED');
+    }
+
+    // Handle 403 Forbidden - Permission denied
+    if (response.status === 403) {
+      throw new ApiError('You do not have permission to perform this action.', 403, 'FORBIDDEN');
+    }
+
+    // Handle 500 Internal Server Error
+    if (response.status >= 500) {
+      throw new ApiError('Server error occurred. Please try again later.', response.status, 'SERVER_ERROR');
     }
 
     return await parseResponse(response);

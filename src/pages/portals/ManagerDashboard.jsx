@@ -63,8 +63,8 @@ const ManagerDashboard = () => {
         <button
             onClick={() => setActiveTab(id)}
             className={`flex items-center px-6 py-3 font-['Orbitron'] transition-all ${activeTab === id
-                    ? 'bg-cobalt text-white border-b-2 border-cobalt'
-                    : 'text-silver-grey hover:text-white hover:bg-cobalt/20'
+                ? 'bg-cobalt text-white border-b-2 border-cobalt'
+                : 'text-silver-grey hover:text-white hover:bg-cobalt/20'
                 }`}
         >
             <Icon size={18} className="mr-2" />
@@ -80,7 +80,7 @@ const ManagerDashboard = () => {
                         <Shield size={24} className="text-white" />
                     </div>
                     <div className="flex-1">
-                        <h4 className="text-white font-['Orbitron'] text-lg">{guard.fullName || guard.name || 'Guard'}</h4>
+                        <h4 className="text-white font-['Orbitron'] text-lg">{`${guard.firstName || ''} ${guard.lastName || ''}`.trim() || guard.employeeCode || 'Guard'}</h4>
                         <p className="text-silver-grey text-sm">ID: {guard.id || 'N/A'}</p>
                         <div className="mt-2 space-y-1">
                             <div className="flex items-center text-sm text-silver-grey">
@@ -126,25 +126,25 @@ const ManagerDashboard = () => {
                         )}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <StatCard
-                                title="Total Guards"
+                                label="Total Guards"
                                 value={managerStats.totalGuards}
                                 icon={Users}
                                 color="blue"
                             />
                             <StatCard
-                                title="On Duty Now"
+                                label="On Duty Now"
                                 value={managerStats.activeGuards}
                                 icon={Shield}
                                 color="green"
                             />
                             <StatCard
-                                title="Active Assignments"
+                                label="Active Assignments"
                                 value={managerStats.totalAssignments}
                                 icon={TrendingUp}
                                 color="purple"
                             />
                             <StatCard
-                                title="Checked In Today"
+                                label="Checked In Today"
                                 value={managerStats.checkedInToday}
                                 icon={Clock}
                                 color="yellow"
@@ -162,12 +162,12 @@ const ManagerDashboard = () => {
                                         {todaySummary.map((record) => (
                                             <div key={record.attendanceId} className="flex items-center justify-between p-3 bg-black/30 rounded border border-cobalt/20">
                                                 <div>
-                                                    <p className="text-white font-['Orbitron'] text-sm">{record.guardName}</p>
+                                                    <p className="text-white font-['Orbitron'] text-sm">{record.guardFullName || `${record.guardFirstName || ''} ${record.guardLastName || ''}`.trim() || '—'}</p>
                                                     <p className="text-sm text-silver-grey">{record.siteName} — {record.postName}</p>
                                                 </div>
                                                 <span className={`px-2 py-1 rounded-full text-xs font-['Orbitron'] ${record.status === 'PRESENT' ? 'bg-green-500/20 text-green-400' :
-                                                        record.status === 'LATE' ? 'bg-yellow-500/20 text-yellow-400' :
-                                                            'bg-gray-500/20 text-gray-400'
+                                                    record.status === 'LATE' ? 'bg-yellow-500/20 text-yellow-400' :
+                                                        'bg-gray-500/20 text-gray-400'
                                                     }`}>
                                                     {record.status || (record.checkInTime ? 'CHECKED IN' : 'PENDING')}
                                                 </span>
@@ -228,8 +228,8 @@ const ManagerDashboard = () => {
                                             <div className="flex justify-between items-start">
                                                 <div>
                                                     <h4 className="text-white font-['Orbitron']">{assignment.guardName || 'Unassigned'}</h4>
-                                                    <p className="text-sm text-silver-grey">{assignment.siteName} — {assignment.postName}</p>
-                                                    <p className="text-sm text-cobalt mt-1">{assignment.shiftName} ({assignment.shiftStart} - {assignment.shiftEnd})</p>
+                                                    <p className="text-sm text-silver-grey">{assignment.siteName} — {assignment.sitePostName || '—'}</p>
+                                                    <p className="text-sm text-cobalt mt-1">{assignment.shiftTypeName || '—'} ({assignment.shiftStartTime || '—'} - {assignment.shiftEndTime || '—'})</p>
                                                 </div>
                                                 <span className="text-xs text-silver-grey">
                                                     {assignment.effectiveFrom} → {assignment.effectiveTo || 'Ongoing'}

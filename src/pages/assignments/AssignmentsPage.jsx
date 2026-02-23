@@ -204,11 +204,11 @@ const AssignmentsPage = () => {
                                     <div className="flex flex-wrap gap-4 text-sm">
                                         <span className="flex items-center gap-1 text-silver-grey">
                                             <MapPin size={14} className="text-cobalt" />
-                                            {a.siteName || '—'} / {a.postName || '—'}
+                                            {a.siteName || '—'} / {a.sitePostName || '—'}
                                         </span>
                                         <span className="flex items-center gap-1 text-silver-grey">
                                             <Clock size={14} className="text-cobalt" />
-                                            {a.shiftName || '—'} ({a.shiftStart} - {a.shiftEnd})
+                                            {a.shiftTypeName || '—'} ({a.shiftStartTime || '—'} - {a.shiftEndTime || '—'})
                                         </span>
                                         <span className="flex items-center gap-1 text-silver-grey">
                                             <Calendar size={14} className="text-cobalt" />

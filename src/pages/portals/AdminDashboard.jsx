@@ -12,7 +12,6 @@ import {
   Loader,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import DashboardSidebar from '../../components/dashboard/DashboardSidebar';
 import StatCard from './components/StatCard';
 import * as guardService from '../../services/guardService';
 import * as clientService from '../../services/clientService';
@@ -39,7 +38,7 @@ const AdminDashboard = () => {
         clientService.getAllClients(),
         siteService.getAllSites(),
       ]);
-      
+
       setStats({
         totalGuards: guards?.length || 0,
         totalClients: clients?.length || 0,
@@ -53,7 +52,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <DashboardSidebar>
+    <div className="space-y-8">
       {/* Welcome Header */}
       <div className="mb-8">
         <motion.div
@@ -82,7 +81,7 @@ const AdminDashboard = () => {
             transition={{ delay: 0.1 }}
           >
             <StatCard
-              title="Total Guards"
+              label="Total Guards"
               value={stats.totalGuards}
               icon={Shield}
               trend={null}
@@ -96,7 +95,7 @@ const AdminDashboard = () => {
             transition={{ delay: 0.2 }}
           >
             <StatCard
-              title="Total Clients"
+              label="Total Clients"
               value={stats.totalClients}
               icon={Building2}
               trend={null}
@@ -110,7 +109,7 @@ const AdminDashboard = () => {
             transition={{ delay: 0.3 }}
           >
             <StatCard
-              title="Total Sites"
+              label="Total Sites"
               value={stats.totalSites}
               icon={MapPin}
               trend={null}
@@ -125,7 +124,7 @@ const AdminDashboard = () => {
         <h2 className="text-xl font-['Orbitron'] text-white mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Link
-            to="/portal/admin/guards"
+            to="/dashboard/admin/guards"
             className="glass p-6 rounded-lg glow-border hover:border-cobalt transition-all group"
           >
             <div className="flex items-center justify-between">
@@ -139,7 +138,7 @@ const AdminDashboard = () => {
           </Link>
 
           <Link
-            to="/portal/admin/clients"
+            to="/dashboard/admin/clients"
             className="glass p-6 rounded-lg glow-border hover:border-cobalt transition-all group"
           >
             <div className="flex items-center justify-between">
@@ -153,7 +152,7 @@ const AdminDashboard = () => {
           </Link>
 
           <Link
-            to="/portal/admin/sites"
+            to="/dashboard/admin/sites"
             className="glass p-6 rounded-lg glow-border hover:border-cobalt transition-all group"
           >
             <div className="flex items-center justify-between">
@@ -194,7 +193,7 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
-    </DashboardSidebar>
+    </div>
   );
 };
 

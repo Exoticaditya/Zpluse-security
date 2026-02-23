@@ -3,8 +3,11 @@
 .env.local
 .env.production
 
-# Backend (separate repository)
-backend/
+# Backend build artifacts (handled by backend/.gitignore but also excluded here)
+backend/target/
+backend/*.jar
+backend/*.war
+
 
 # Dependencies
 node_modules

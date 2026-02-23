@@ -9,7 +9,6 @@ import {
   CheckCircle,
   Loader,
 } from 'lucide-react';
-import DashboardSidebar from '../../components/dashboard/DashboardSidebar';
 import { Button } from '../../components/UIComponents';
 import * as clientService from '../../services/clientService';
 import { handleError } from '../../utils/errorHandler';
@@ -86,7 +85,7 @@ const ClientsPage = () => {
   );
 
   return (
-    <DashboardSidebar>
+    <div className="space-y-6">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
@@ -126,21 +125,19 @@ const ClientsPage = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
-          className={`mb-6 p-4 rounded-lg flex items-start ${
-            notification.type === 'success'
-              ? 'bg-green-500/20 border border-green-500/50'
-              : notification.type === 'error'
+          className={`mb-6 p-4 rounded-lg flex items-start ${notification.type === 'success'
+            ? 'bg-green-500/20 border border-green-500/50'
+            : notification.type === 'error'
               ? 'bg-red-500/20 border border-red-500/50'
               : 'bg-blue-500/20 border border-blue-500/50'
-          }`}
+            }`}
         >
           {notification.type === 'success' ? (
             <CheckCircle className="text-green-500 mr-3 flex-shrink-0" size={20} />
           ) : (
             <AlertCircle
-              className={`mr-3 flex-shrink-0 ${
-                notification.type === 'error' ? 'text-red-500' : 'text-blue-500'
-              }`}
+              className={`mr-3 flex-shrink-0 ${notification.type === 'error' ? 'text-red-500' : 'text-blue-500'
+                }`}
               size={20}
             />
           )}
@@ -194,11 +191,10 @@ const ClientsPage = () => {
                       </td>
                       <td className="p-4">
                         <span
-                          className={`px-3 py-1 rounded-full text-xs ${
-                            client.status === 'ACTIVE'
-                              ? 'bg-green-500/20 text-green-400'
-                              : 'bg-red-500/20 text-red-400'
-                          }`}
+                          className={`px-3 py-1 rounded-full text-xs ${client.status === 'ACTIVE'
+                            ? 'bg-green-500/20 text-green-400'
+                            : 'bg-red-500/20 text-red-400'
+                            }`}
                         >
                           {client.status || 'ACTIVE'}
                         </span>
@@ -268,7 +264,7 @@ const ClientsPage = () => {
           </motion.div>
         </div>
       )}
-    </DashboardSidebar>
+    </div>
   );
 };
 

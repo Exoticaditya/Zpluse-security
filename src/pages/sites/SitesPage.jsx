@@ -11,7 +11,6 @@ import {
   Building2,
   Filter,
 } from 'lucide-react';
-import DashboardSidebar from '../../components/dashboard/DashboardSidebar';
 import { Button } from '../../components/UIComponents';
 import * as siteService from '../../services/siteService';
 import * as clientService from '../../services/clientService';
@@ -133,7 +132,7 @@ const SitesPage = () => {
   );
 
   return (
-    <DashboardSidebar>
+    <div className="space-y-6">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
@@ -190,21 +189,19 @@ const SitesPage = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
-          className={`mb-6 p-4 rounded-lg flex items-start ${
-            notification.type === 'success'
+          className={`mb-6 p-4 rounded-lg flex items-start ${notification.type === 'success'
               ? 'bg-green-500/20 border border-green-500/50'
               : notification.type === 'error'
-              ? 'bg-red-500/20 border border-red-500/50'
-              : 'bg-blue-500/20 border border-blue-500/50'
-          }`}
+                ? 'bg-red-500/20 border border-red-500/50'
+                : 'bg-blue-500/20 border border-blue-500/50'
+            }`}
         >
           {notification.type === 'success' ? (
             <CheckCircle className="text-green-500 mr-3 flex-shrink-0" size={20} />
           ) : (
             <AlertCircle
-              className={`mr-3 flex-shrink-0 ${
-                notification.type === 'error' ? 'text-red-500' : 'text-blue-500'
-              }`}
+              className={`mr-3 flex-shrink-0 ${notification.type === 'error' ? 'text-red-500' : 'text-blue-500'
+                }`}
               size={20}
             />
           )}
@@ -270,11 +267,10 @@ const SitesPage = () => {
                       </td>
                       <td className="p-4">
                         <span
-                          className={`px-3 py-1 rounded-full text-xs ${
-                            site.status === 'ACTIVE'
+                          className={`px-3 py-1 rounded-full text-xs ${site.status === 'ACTIVE'
                               ? 'bg-green-500/20 text-green-400'
                               : 'bg-red-500/20 text-red-400'
-                          }`}
+                            }`}
                         >
                           {site.status || 'ACTIVE'}
                         </span>
@@ -405,7 +401,7 @@ const SitesPage = () => {
           </motion.div>
         </div>
       )}
-    </DashboardSidebar>
+    </div>
   );
 };
 

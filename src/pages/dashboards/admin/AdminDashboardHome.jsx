@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Shield, Plus, Users, TrendingUp, Building2, MapPin } from 'lucide-react';
 import * as guardService from '../../../services/guardService';
@@ -133,50 +134,53 @@ const AdminDashboardHome = () => {
           Quick Actions
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <motion.a
-            href="/dashboard/admin/guards"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-black/40 backdrop-blur-sm border border-cobalt/30 rounded-xl p-6 hover:border-cobalt transition-colors group"
-          >
-            <Shield className="text-cobalt mb-3" size={32} />
-            <h3 className="text-white font-['Orbitron'] font-bold text-lg mb-2">
-              Manage Guards
-            </h3>
-            <p className="text-silver-grey text-sm">
-              Add, edit, or remove security personnel
-            </p>
-          </motion.a>
+          <Link to="/dashboard/admin/guards">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-black/40 backdrop-blur-sm border border-cobalt/30 rounded-xl p-6 hover:border-cobalt transition-colors group cursor-pointer"
+            >
+              <Shield className="text-cobalt mb-3" size={32} />
+              <h3 className="text-white font-['Orbitron'] font-bold text-lg mb-2">
+                Manage Guards
+              </h3>
+              <p className="text-silver-grey text-sm">
+                Add, edit, or remove security personnel
+              </p>
+            </motion.div>
+          </Link>
 
-          <motion.a
-            href="/dashboard/admin/sites"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-black/40 backdrop-blur-sm border border-cobalt/30 rounded-xl p-6 hover:border-cobalt transition-colors group"
-          >
-            <MapPin className="text-cobalt mb-3" size={32} />
-            <h3 className="text-white font-['Orbitron'] font-bold text-lg mb-2">
-              Manage Sites
-            </h3>
-            <p className="text-silver-grey text-sm">
-              Configure security sites and locations
-            </p>
-          </motion.a>
+          <Link to="/dashboard/admin/sites">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-black/40 backdrop-blur-sm border border-cobalt/30 rounded-xl p-6 hover:border-cobalt transition-colors group cursor-pointer"
+            >
+              <MapPin className="text-cobalt mb-3" size={32} />
+              <h3 className="text-white font-['Orbitron'] font-bold text-lg mb-2">
+                Manage Sites
+              </h3>
+              <p className="text-silver-grey text-sm">
+                Configure security sites and locations
+              </p>
+            </motion.div>
+          </Link>
 
-          <motion.a
-            href="/dashboard/admin/clients"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-black/40 backdrop-blur-sm border border-cobalt/30 rounded-xl p-6 hover:border-cobalt transition-colors group"
-          >
-            <Building2 className="text-cobalt mb-3" size={32} />
-            <h3 className="text-white font-['Orbitron'] font-bold text-lg mb-2">
-              Manage Clients
-            </h3>
-            <p className="text-silver-grey text-sm">
-              Add and manage client accounts
-            </p>
-          </motion.a>
+          <Link to="/dashboard/admin/clients">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-black/40 backdrop-blur-sm border border-cobalt/30 rounded-xl p-6 hover:border-cobalt transition-colors group cursor-pointer"
+            >
+              <Building2 className="text-cobalt mb-3" size={32} />
+              <h3 className="text-white font-['Orbitron'] font-bold text-lg mb-2">
+                Manage Clients
+              </h3>
+              <p className="text-silver-grey text-sm">
+                Add and manage client accounts
+              </p>
+            </motion.div>
+          </Link>
         </div>
       </div>
     </div>

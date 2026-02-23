@@ -9,8 +9,8 @@ import {
   CheckCircle,
   Loader,
   UserCircle,
+  Edit,
 } from 'lucide-react';
-import DashboardSidebar from '../../components/dashboard/DashboardSidebar';
 import { Button } from '../../components/UIComponents';
 import * as guardService from '../../services/guardService';
 import { handleError } from '../../utils/errorHandler';
@@ -23,15 +23,19 @@ const GuardsPage = () => {
   const [notification, setNotification] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
 
-  // Form state
+  // Form state — matches CreateGuardRequest on the backend
   const [formData, setFormData] = useState({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
+    password: '',
     phone: '',
-    licenseNumber: '',
+    employeeCode: '',
+    baseSalary: '',
+    perDayRate: '',
+    overtimeRate: '',
   });
 
-  // Load guards on mount
   useEffect(() => {
     loadGuards();
   }, []);
@@ -48,14 +52,33 @@ const GuardsPage = () => {
     }
   };
 
+  const resetForm = () => {
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      phone: '',
+      employeeCode: '',
+      baseSalary: '',
+      perDayRate: '',
+      overtimeRate: '',
+    });
+  };
+
   const handleCreateGuard = async (e) => {
     e.preventDefault();
     try {
       setActionLoading(true);
-      await guardService.createGuard(formData);
+      await guardService.createGuard({
+        ...formData,
+        baseSalary: parseFloat(formData.baseSalary),
+        perDayRate: parseFloat(formData.perDayRate),
+        overtimeRate: parseFloat(formData.overtimeRate),
+      });
       showNotification('Guard created successfully', 'success');
       setShowCreateModal(false);
-      setFormData({ fullName: '', email: '', phone: '', licenseNumber: '' });
+      resetForm();
       loadGuards();
     } catch (error) {
       showNotification(handleError(error), 'error');
@@ -64,10 +87,9 @@ const GuardsPage = () => {
     }
   };
 
-  const handleDeleteGuard = async (id, name) => {
-    if (!window.confirm(`Are you sure you want to delete ${name}?`)) {
-      return;
-    }
+  const handleDeleteGuard = async (id, firstName, lastName) => {
+    const name = `${firstName || ''} ${lastName || ''}`.trim() || 'this guard';
+    if (!window.confirm(`Are you sure you want to delete ${name}?`)) return;
 
     try {
       setActionLoading(true);
@@ -86,14 +108,18 @@ const GuardsPage = () => {
     setTimeout(() => setNotification(null), 5000);
   };
 
-  const filteredGuards = guards.filter((guard) =>
-    guard.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    guard.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    guard.licenseNumber?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredGuards = guards.filter((guard) => {
+    const fullName = `${guard.firstName || ''} ${guard.lastName || ''}`.toLowerCase();
+    const term = searchTerm.toLowerCase();
+    return (
+      fullName.includes(term) ||
+      guard.email?.toLowerCase().includes(term) ||
+      guard.employeeCode?.toLowerCase().includes(term)
+    );
+  });
 
   return (
-    <DashboardSidebar>
+    <div className="space-y-6">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
@@ -163,7 +189,7 @@ const GuardsPage = () => {
           <Loader className="animate-spin text-cobalt" size={40} />
         </div>
       ) : (
-        <div className="glass rounded-lg overflow-hidden">
+        <div className="bg-black/40 border border-cobalt/20 rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-cobalt/10 border-b border-cobalt/30">
@@ -171,7 +197,7 @@ const GuardsPage = () => {
                   <th className="text-left p-4 text-cobalt font-['Orbitron'] text-sm">Guard</th>
                   <th className="text-left p-4 text-cobalt font-['Orbitron'] text-sm">Email</th>
                   <th className="text-left p-4 text-cobalt font-['Orbitron'] text-sm">Phone</th>
-                  <th className="text-left p-4 text-cobalt font-['Orbitron'] text-sm">License #</th>
+                  <th className="text-left p-4 text-cobalt font-['Orbitron'] text-sm">Employee Code</th>
                   <th className="text-left p-4 text-cobalt font-['Orbitron'] text-sm">Status</th>
                   <th className="text-right p-4 text-cobalt font-['Orbitron'] text-sm">Actions</th>
                 </tr>
@@ -184,46 +210,48 @@ const GuardsPage = () => {
                     </td>
                   </tr>
                 ) : (
-                  filteredGuards.map((guard) => (
-                    <tr
-                      key={guard.id}
-                      className="border-b border-cobalt/20 hover:bg-cobalt/10 transition-colors"
-                    >
-                      <td className="p-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gradient-radial from-cobalt to-blue-900 rounded-full flex items-center justify-center">
-                            <UserCircle size={20} className="text-white" />
+                  filteredGuards.map((guard) => {
+                    const fullName = `${guard.firstName || ''} ${guard.lastName || ''}`.trim() || 'N/A';
+                    return (
+                      <tr
+                        key={guard.id}
+                        className="border-b border-cobalt/20 hover:bg-cobalt/10 transition-colors"
+                      >
+                        <td className="p-4">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-cobalt to-blue-900 rounded-full flex items-center justify-center">
+                              <UserCircle size={20} className="text-white" />
+                            </div>
+                            <span className="text-white font-['Orbitron']">{fullName}</span>
                           </div>
-                          <span className="text-white font-['Orbitron']">
-                            {guard.fullName || 'N/A'}
+                        </td>
+                        <td className="p-4 text-silver-grey">{guard.email || 'N/A'}</td>
+                        <td className="p-4 text-silver-grey">{guard.phone || 'N/A'}</td>
+                        <td className="p-4 text-silver-grey font-mono">{guard.employeeCode || 'N/A'}</td>
+                        <td className="p-4">
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-medium ${
+                              guard.status === 'ACTIVE'
+                                ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                                : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                            }`}
+                          >
+                            {guard.status || 'ACTIVE'}
                           </span>
-                        </div>
-                      </td>
-                      <td className="p-4 text-silver-grey">{guard.email || 'N/A'}</td>
-                      <td className="p-4 text-silver-grey">{guard.phone || 'N/A'}</td>
-                      <td className="p-4 text-silver-grey font-mono">{guard.licenseNumber || 'N/A'}</td>
-                      <td className="p-4">
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs ${
-                            guard.status === 'ACTIVE'
-                              ? 'bg-green-500/20 text-green-400'
-                              : 'bg-red-500/20 text-red-400'
-                          }`}
-                        >
-                          {guard.status || 'ACTIVE'}
-                        </span>
-                      </td>
-                      <td className="p-4 text-right">
-                        <button
-                          onClick={() => handleDeleteGuard(guard.id, guard.fullName)}
-                          disabled={actionLoading}
-                          className="p-2 hover:bg-red-500/20 rounded transition-colors text-red-400 hover:text-red-300 disabled:opacity-50"
-                        >
-                          <Trash2 size={18} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
+                        </td>
+                        <td className="p-4 text-right">
+                          <button
+                            onClick={() => handleDeleteGuard(guard.id, guard.firstName, guard.lastName)}
+                            disabled={actionLoading}
+                            className="p-2 hover:bg-red-500/20 rounded transition-colors text-red-400 hover:text-red-300 disabled:opacity-50"
+                            title="Delete guard"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>
@@ -233,71 +261,133 @@ const GuardsPage = () => {
 
       {/* Create Guard Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="glass p-8 rounded-lg max-w-md w-full glow-border"
+            className="bg-gradient-to-br from-gray-900 to-black border border-cobalt/40 p-8 rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl shadow-cobalt/10"
           >
-            <h2 className="text-2xl font-['Orbitron'] text-white mb-6">Add New Guard</h2>
+            <h2 className="text-2xl font-['Orbitron'] text-white mb-6 flex items-center">
+              <Shield className="mr-3 text-cobalt" size={24} />
+              Add New Guard
+            </h2>
             <form onSubmit={handleCreateGuard} className="space-y-4">
-              <div>
-                <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none"
-                  placeholder="John Doe"
-                />
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">First Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.firstName}
+                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                    className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none transition-colors"
+                    placeholder="John"
+                  />
+                </div>
+                <div>
+                  <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">Last Name</label>
+                  <input
+                    type="text"
+                    value={formData.lastName}
+                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                    className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none transition-colors"
+                    placeholder="Doe"
+                  />
+                </div>
               </div>
               <div>
-                <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">
-                  Email *
-                </label>
+                <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">Email *</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none"
-                  placeholder="john@example.com"
+                  className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none transition-colors"
+                  placeholder="john.doe@example.com"
                 />
               </div>
               <div>
-                <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">
-                  Phone
-                </label>
+                <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">Password *</label>
                 <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none"
-                  placeholder="+1234567890"
-                />
-              </div>
-              <div>
-                <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">
-                  License Number *
-                </label>
-                <input
-                  type="text"
+                  type="password"
                   required
-                  value={formData.licenseNumber}
-                  onChange={(e) => setFormData({ ...formData, licenseNumber: e.target.value })}
-                  className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none"
-                  placeholder="SG123456"
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none transition-colors"
+                  placeholder="Min 8 characters"
+                  minLength={8}
                 />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">Phone</label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none transition-colors"
+                    placeholder="+1234567890"
+                  />
+                </div>
+                <div>
+                  <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">Employee Code *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.employeeCode}
+                    onChange={(e) => setFormData({ ...formData, employeeCode: e.target.value })}
+                    className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none transition-colors"
+                    placeholder="EMP001"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">Base Salary *</label>
+                  <input
+                    type="number"
+                    required
+                    min="0"
+                    step="0.01"
+                    value={formData.baseSalary}
+                    onChange={(e) => setFormData({ ...formData, baseSalary: e.target.value })}
+                    className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none transition-colors"
+                    placeholder="0.00"
+                  />
+                </div>
+                <div>
+                  <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">Per Day Rate *</label>
+                  <input
+                    type="number"
+                    required
+                    min="0"
+                    step="0.01"
+                    value={formData.perDayRate}
+                    onChange={(e) => setFormData({ ...formData, perDayRate: e.target.value })}
+                    className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none transition-colors"
+                    placeholder="0.00"
+                  />
+                </div>
+                <div>
+                  <label className="block text-cobalt text-sm font-['Orbitron'] mb-2">Overtime Rate *</label>
+                  <input
+                    type="number"
+                    required
+                    min="0"
+                    step="0.01"
+                    value={formData.overtimeRate}
+                    onChange={(e) => setFormData({ ...formData, overtimeRate: e.target.value })}
+                    className="w-full bg-black/50 border border-cobalt/30 rounded-lg px-4 py-3 text-white focus:border-cobalt outline-none transition-colors"
+                    placeholder="0.00"
+                  />
+                </div>
               </div>
               <div className="flex space-x-3 mt-6">
                 <Button
                   type="button"
                   onClick={() => {
                     setShowCreateModal(false);
-                    setFormData({ fullName: '', email: '', phone: '', licenseNumber: '' });
+                    resetForm();
                   }}
                   variant="secondary"
                   className="flex-1"
@@ -313,7 +403,7 @@ const GuardsPage = () => {
           </motion.div>
         </div>
       )}
-    </DashboardSidebar>
+    </div>
   );
 };
 
